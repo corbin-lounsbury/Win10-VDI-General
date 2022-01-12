@@ -6,9 +6,18 @@ function install-office {
     new-item -path $destinationPath -ItemType Directory -Force
     Invoke-WebRequest -Uri $url -OutFile $odtArchive
     Write-Output "Expanding ODT Archive"
-    start-process .\ODTarchive.exe -ArgumentList "/extract:$destinationPath /quiet /passive" -Wait -NoNewWindow
+    start-process $odtArchive -ArgumentList "/extract:$destinationPath /quiet /passive" -Wait -NoNewWindow
     write-output "Office installation starting"
     Start-Process $destinationPath\setup.exe -ArgumentList "/configure a:\Office19Configuration.xml" -Wait -NoNewWindow
 }
 
+function uninstall-ctrOffice {
+    $packages= @('Microsoft.Office.Desktop', 'Microsoft.Office.OneNote', 'Microsoft.MicrosoftOffice')
+    Write-Output "Uninstalling CTR Office"
+    foreach ($package in $packages) {
+        Get-AppxProvisionedPackage -online | ForEach-Object {if ($_.DisplayName -match "$package") {$_ | Remove-AppProvisionedPackage -AllUsers}}
+    }
+}
+
+uninstall-ctrOffice
 install-office

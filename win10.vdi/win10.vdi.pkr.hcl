@@ -42,7 +42,7 @@ build {
   provisioner "powershell" { //run as admin?
     script = "./scripts/win-update.ps1"
   }
-  //provisioner "windows-restart" {
-  //  restart_timeout = "30m"
-  //}
+  provisioner "powershell" { //run as admin?
+    script = "./scripts/applications/install-off2019.ps1"
+  }
 }
