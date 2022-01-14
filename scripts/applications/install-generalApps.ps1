@@ -1,3 +1,15 @@
+function dir_check ($checkarg)
+{
+    if ((Test-Path $checkarg) -eq 'True' )
+    {
+        return 0
+    }
+    else
+    {
+        write-output "Could not find folder $checkarg."
+        return 1
+    }
+}
 function get-firefox_ent #Gets most recent version of firefox enterprise from web and installs
 {
     function get-LatestFirefoxESRURL {
@@ -79,7 +91,7 @@ function get-chrome_ent #Gets most recent version of chrome enterprise from web 
 ###MAIN###
 $working_dir = "c:\temp"
  
-New-Item $working_dir -ItemType directory
+#New-Item $working_dir -ItemType directory
  
 set-location $working_dir # Changes to top level directory of the script. Used where elevation was needed and shell restarts in system32
  
