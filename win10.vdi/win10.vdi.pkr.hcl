@@ -42,6 +42,12 @@ build {
   provisioner "powershell" {
     script = "./scripts/win-update.ps1"
   }
+  provisioner "windows-restart" {
+    max_retries = 6
+  }
+    provisioner "powershell" {
+    script = "./scripts/applications/prepare-appinstall.ps1"
+  }
   provisioner "powershell" {
     script = "./scripts/applications/install-off2019.ps1"
   }
