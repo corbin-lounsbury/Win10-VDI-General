@@ -21,12 +21,12 @@ function get-firefox_ent #Gets most recent version of firefox enterprise from we
         )
  
         # JSON that provide details on Firefox versions
-        $uriSource = https://product-details.mozilla.org/1.0/firefox_versions.json
+        $uriSource = "https://product-details.mozilla.org/1.0/firefox_versions.json"
  
         # Read the JSON and convert to a PowerShell object
         $firefoxVersions = (Invoke-WebRequest -uri $uriSource).Content | ConvertFrom-Json
  
-        $VersionURL = https://download-installer.cdn.mozilla.net/pub/firefox/releases/$($firefoxVersions.FIREFOX_ESR)/$($architecture)/$($culture)/Firefox%20Setup%20$($firefoxVersions.FIREFOX_ESR).msi
+        $VersionURL = "https://download-installer.cdn.mozilla.net/pub/firefox/releases/$($firefoxVersions.FIREFOX_ESR)/$($architecture)/$($culture)/Firefox%20Setup%20$($firefoxVersions.FIREFOX_ESR).msi"
         #Write-Output $VersionURL
         return $VersionURL
         }
@@ -41,7 +41,7 @@ function get-firefox_ent #Gets most recent version of firefox enterprise from we
         ) #> #removed as these params are not being used
  
         # JSON that provide details on Firefox versions
-        $uriSource = https://product-details.mozilla.org/1.0/firefox_versions.json
+        $uriSource = "https://product-details.mozilla.org/1.0/firefox_versions.json"
  
         # Read the JSON and convert to a PowerShell object
         $firefoxVersions = (Invoke-WebRequest -uri $uriSource).Content | ConvertFrom-Json
@@ -65,7 +65,7 @@ function get-firefox_ent #Gets most recent version of firefox enterprise from we
 function get-installRoot
 {
     #Grabs InstallRoot from DISA site
-    $url = https://dl.dod.cyber.mil/wp-content/uploads/pki-pke/msi/InstallRoot_5.5x64.msi
+    $url = "https://dl.dod.cyber.mil/wp-content/uploads/pki-pke/msi/InstallRoot_5.5x64.msi"
     $destination = ".\installroot\installroot.msi"
     Invoke-WebRequest -Uri $url -OutFile $destination
     Write-Output "InstallRoot app grab complete, starting install"
@@ -81,7 +81,7 @@ function get-rsat #installs RSAT from DISM
 }
 function get-chrome_ent #Gets most recent version of chrome enterprise from web and installs
 {
-    $url = https://dl.google.com/tag/s/dl/chrome/install/googlechromestandaloneenterprise.msi
+    $url = "https://dl.google.com/tag/s/dl/chrome/install/googlechromestandaloneenterprise.msi"
     $destination = ".\chrome\chrome_enterprise.msi"
     Invoke-WebRequest -Uri $url -OutFile $destination
     Write-Output "Chrome Enterprise update grab complete, starting install"
