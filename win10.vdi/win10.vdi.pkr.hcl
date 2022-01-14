@@ -54,7 +54,7 @@ build {
     provisioner "powershell" {
     script = "./scripts/applications/install-generalApps.ps1"
   }
-  provisioner "powershell" { //pass 1. Installs prereqs
+  provisioner "powershell" {
     script = "./scripts/applications/install-horizonAgent.ps1"
   }
   provisioner "windows-restart" {
