@@ -51,8 +51,10 @@ build {
   provisioner "powershell" {
     script = "./scripts/applications/install-off2019.ps1"
   }
-  provisioner "powershell" {
+  provisioner "powershell" { //pass 1. Installs prereqs
     script = "./scripts/applications/install-horizonAgent.ps1"
   }
-  
+  provisioner "windows-restart" {
+    max_retries = 6
+  }
 }
