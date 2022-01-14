@@ -74,3 +74,8 @@ variable "winadmin-password" {
   type    = string
   default = "packer" // also declared in the autounattend.xml. If you want to change this, change it in both places. 
 }
+
+variable "template-bool" {
+  type    = string
+  default = "false"
+}
