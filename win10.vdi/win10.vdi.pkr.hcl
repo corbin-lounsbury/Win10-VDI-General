@@ -51,6 +51,9 @@ build {
   provisioner "powershell" {
     script = "./scripts/applications/install-off2019.ps1"
   }
+    provisioner "powershell" {
+    script = "./scripts/applications/install-generalApps.ps1"
+  }
   provisioner "powershell" { //pass 1. Installs prereqs
     script = "./scripts/applications/install-horizonAgent.ps1"
   }
