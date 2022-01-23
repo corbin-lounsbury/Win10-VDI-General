@@ -62,4 +62,7 @@ build {
   provisioner "windows-restart" {
     max_retries = 6
   }
+  provisioner "powershell"{
+    script = "./scripts/finalize-image.ps1"
+  }
 }
