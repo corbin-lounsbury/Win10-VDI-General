@@ -166,6 +166,7 @@
                 </Password>
                 <Enabled>true</Enabled>
                 <Username>Administrator</Username>
+                <LogonCount>1</LogonCount>
             </AutoLogon>
             <FirstLogonCommands>
                 <SynchronousCommand wcm:action="add">
@@ -194,6 +195,11 @@
                     <CommandLine>cmd.exe /c C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -File a:\enable-winrm.ps1</CommandLine>
                     <Description>Enable WinRM</Description>
                     <Order>5</Order>
+                </SynchronousCommand>
+                <SynchronousCommand wcm:action="add">
+                    <CommandLine>reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon" /v AutoLogonCount /t REG_DWORD /d 0 /f</CommandLine>
+                    <Description>Disable autologon</Description>
+                    <Order>6</Order>
                 </SynchronousCommand>
             </FirstLogonCommands>
             <OOBE>
