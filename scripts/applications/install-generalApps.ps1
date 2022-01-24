@@ -1,3 +1,4 @@
+<#
 function dir_check ($checkarg)
 {
     if ((Test-Path $checkarg) -eq 'True' )
@@ -10,6 +11,7 @@ function dir_check ($checkarg)
         return 1
     }
 }
+#>
 function get-firefox_ent #Gets most recent version of firefox enterprise from web and installs
 {
     function get-LatestFirefoxESRURL {
@@ -50,7 +52,8 @@ function get-firefox_ent #Gets most recent version of firefox enterprise from we
         #Write-Output $Version
         return $Version
         }
- 
+    
+    write-output "Starting Firefox Enterprise binary download"
     $Version = "$(get-LatestFirefoxESRVersion)"
     $PackageName = "Firefox"
     $InstallerType = "msi"
@@ -65,6 +68,7 @@ function get-firefox_ent #Gets most recent version of firefox enterprise from we
 function get-installRoot
 {
     #Grabs InstallRoot from DISA site
+    write-output "Starting InstallRoot binary download"
     $url = "https://dl.dod.cyber.mil/wp-content/uploads/pki-pke/msi/InstallRoot_5.5x64.msi"
     $destination = ".\installroot\installroot.msi"
     Invoke-WebRequest -Uri $url -OutFile $destination
@@ -81,6 +85,7 @@ function get-rsat #installs RSAT from DISM
 }
 function get-chrome_ent #Gets most recent version of chrome enterprise from web and installs
 {
+    write-output "Starting Chrome Enterprise binary download"
     $url = "https://dl.google.com/tag/s/dl/chrome/install/googlechromestandaloneenterprise.msi"
     $destination = ".\chrome\chrome_enterprise.msi"
     Invoke-WebRequest -Uri $url -OutFile $destination
@@ -101,7 +106,7 @@ $req_dirs = @('\firefox', '\chrome', '\edge', '\installroot')
  
 foreach ($dir in $req_dirs)
 {
-    if ((dir_check $working_dir$dir) -eq 0)
+    if (Test-Path $working_dir$dir)
     {
         Write-Output "$working_dir$dir exists"
         continue
