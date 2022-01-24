@@ -98,7 +98,7 @@ $working_dir = "c:\temp"
  
 #New-Item $working_dir -ItemType directory
  
-set-location $working_dir # Changes to top level directory of the script. Used where elevation was needed and shell restarts in system32
+set-location $working_dir # Changes to top level directory of the script. Used where script is executed in another directory. 
  
 #Looks for required directories
  
