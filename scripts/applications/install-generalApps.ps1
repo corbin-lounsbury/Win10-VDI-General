@@ -1,17 +1,3 @@
-<#
-function dir_check ($checkarg)
-{
-    if ((Test-Path $checkarg) -eq 'True' )
-    {
-        return 0
-    }
-    else
-    {
-        write-output "Could not find folder $checkarg."
-        return 1
-    }
-}
-#>
 function get-firefox_ent #Gets most recent version of firefox enterprise from web and installs
 {
     function get-LatestFirefoxESRURL {
@@ -93,16 +79,22 @@ function get-chrome_ent #Gets most recent version of chrome enterprise from web 
     start-process MsiExec.exe -ArgumentList "/i $working_dir\chrome\chrome_enterprise.msi /quiet /passive" -wait -nonewwindow
 }
 
+function get-vsCode {
+    $url = "https://code.visualstudio.com/sha/download?build=stable&os=win32-x64"
+    $destination = ".\vscode\vscode.exe"
+    Invoke-WebRequest -Uri $url -OutFile $destination
+    Write-Output "VSCode install grab complete, starting install"
+    start-process .\vscode\vscode.exe -ArgumentList "/VERYSILENT /NORESTART /MERGETASKS=!runcode" -wait -nonewwindow
+}
+
 ###MAIN###
 $working_dir = "c:\temp"
- 
-#New-Item $working_dir -ItemType directory
  
 set-location $working_dir # Changes to top level directory of the script. Used where script is executed in another directory. 
  
 #Looks for required directories
  
-$req_dirs = @('\firefox', '\chrome', '\edge', '\installroot')
+$req_dirs = @('\firefox', '\chrome', '\edge', '\installroot', '\vscode')
  
 foreach ($dir in $req_dirs)
 {
@@ -122,4 +114,5 @@ foreach ($dir in $req_dirs)
 get-chrome_ent
 get-firefox_ent
 get-installRoot
-get-rsat
+#get-rsat
+get-vsCode
